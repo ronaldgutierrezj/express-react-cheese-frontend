@@ -1,40 +1,47 @@
-import {useState} from "react";
-import {Link} from "react-router-dom";
+import { useState } from "react"
+import { Link } from "react-router-dom"
 
-function Index(props){
-    const [newForm, setNewForm] = useState({
-        name:"",
-        image:"",
-        countryOfOrigin:"",
-    });
+function Index(props) {
+  // state to hold formData
+  const [newForm, setNewForm] = useState({
+    name: "",
+    image: "",
+    countryOfOrigin: "",
+  })
 
-    const handleChange =(event)=>{
-        setNewForm({...newForm, [event.target.name]:event.target.value});
-    };
-    const handleSubmit =(event)=> {
-        event.preventDefault();
-        props.createCheese(newForm);
-        setNewForm({
-            name:"",
-            image:"",
-            countryOfOrigin:"",
-        });
-    };
+  // handleChange function for form
+  const handleChange = event => {
+    setNewForm({ ...newForm, [event.target.name]: event.target.value })
+  }
 
-    const loaded = () => {
-        return props.cheese.map((chess)=> (
-            <div key={chess._id} className="chess">
-                <Link to={`/cheese/${chess._id}`}><h1>{chess.name}</h1></Link>
-                <img src={chess.image} alt={chess.name}/>
-                <h3>Origin: {chess.countryOfOrigin}</h3>
-            </div>
-        ));
-    };
-    const loading =()=>{
-        return <h1>Loading...</h1>;
-    };
+  // handle submit function for form
+  const handleSubmit = event => {
+    event.preventDefault()
+    props.createCheese(newForm)
+    setNewForm({
+      name: "",
+      image: "",
+      countryOfOrigin: "",
+    })
+  }
 
-    return (
+  // loaded function
+  const loaded = () => {
+    return props.cheese.map(chess => (
+      <div key={chess._id} className="chess">
+        <Link to={`/cheese/${chess._id}`}>
+          <h1>{chess.name}</h1>
+        </Link>
+        <img src={chess.image} alt={chess.name} />
+        <h3>{chess.countryOfOrigin}</h3>
+      </div>
+    ))
+  }
+
+  const loading = () => {
+    return <h1>Loading...</h1>
+  }
+  return (
     <section>
       <form onSubmit={handleSubmit}>
         <input
@@ -62,7 +69,7 @@ function Index(props){
       </form>
       {props.cheese ? loaded() : loading()}
     </section>
-  );
-  } 
-  
-  export default Index
+  )
+}
+
+export default Index
