@@ -5,7 +5,7 @@ import Show from "../pages/Show";
 
 function Main(props){
     const[cheese, setCheese] = useState (null);
-    const URL = "https://express-react-cheese-backend.herokuapp.com/cheese/";
+    const URL = "https://ringo-cheese-app-backend.herokuapp.com/cheese/";
 
     const getCheese = async() => {
         const response = await fetch(URL);
